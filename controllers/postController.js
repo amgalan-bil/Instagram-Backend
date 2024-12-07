@@ -27,7 +27,7 @@ const createPost = async(req,res)=>{
 
 const getPost = async (req,res)=>{
     try{
-        const post = await postModel.find().populate("comment")
+        const post = await postModel.find().populate("userId", 'username profileImage')
         res.status(200).send(post)
     }catch(err){
         res.status(500).send(err)
