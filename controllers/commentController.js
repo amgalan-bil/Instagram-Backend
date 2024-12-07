@@ -25,8 +25,13 @@ const addComment = async(req, res)=>{
 }
 
 const getComment = async(req, res)=>{
+
+    const {postId} = req.query
     try{
-        const comment = await postModel.find().populate("comment")
+        const comment = await postModel.find(postId).populate({path:'comment', populate:{
+            path:"userId",
+            select:"profileImage username"
+        }})
         res.status(200).send(comment)
     }catch(error){
         res.status(500).send(error)
