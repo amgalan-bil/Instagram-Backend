@@ -12,7 +12,7 @@ userRoute.post("/signup", addUser)
 userRoute.get("/users", getUser)
 
 userRoute.post("/comment", addComment)
-userRoute.get("/comment/:postId", getComment)
+userRoute.get("/posts/comment/:postId", getComment)
 
 userRoute.post("/follow" , follow)
 userRoute.post("/unfollow" , unfollow)
