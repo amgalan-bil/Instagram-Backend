@@ -26,9 +26,10 @@ const addComment = async(req, res)=>{
 
 const getComment = async(req, res)=>{
 
-    const {postId} = req.query
+    const {postId} = req.params
+    console.log(postId)
     try{
-        const comment = await postModel.find(postId).populate({path:'comment', populate:{
+        const comment = await postModel.findById(postId).populate({path:'comment', populate:{
             path:"userId",
             select:"profileImage username"
         }})
