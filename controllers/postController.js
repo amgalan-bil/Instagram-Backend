@@ -1,7 +1,6 @@
 const postModel = require("../models/postSchema")
 const userModel = require("../models/userSchema")
 
-
 const createPost = async(req,res)=>{
     try{
         const body = req.body

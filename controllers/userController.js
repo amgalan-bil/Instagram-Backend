@@ -1,13 +1,16 @@
 const userModel = require("../models/userSchema")
 const bcrypt = require("bcrypt");
 const postModel = require("../models/postSchema");
+const jwt = require("jsonwebtoken")
+const dotenv = require("dotenv")
 
+dotenv.config()
 
 const addUser = async (req, res)=>{
+    const body = req.body
+    const { username, password, email, profileImage, bio, post} = body;
+    
     try{
-        const body = req.body
-        const { username, password, email, profileImage, bio, post} = body;
-
         const hash = await bcrypt.hashSync(password, 10)
 
         const createUser = await userModel.create({
@@ -23,10 +26,17 @@ const addUser = async (req, res)=>{
                 posts: createUser._id,
             }
         })
+        
+        const token = jwt.sign({
+            userId: createUser._id,
+            username: createUser.username
+        },
+        process.env.JWT_PASS,
+        {expiresIn: '24h'})
 
-        res.status(200).send("created user")
+        res.status(200).send({token})
     }catch(err){
-        console.log(err)
+        res.send({message:`failed to create a user, ${err}`})
     }
 
 }
