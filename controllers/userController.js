@@ -31,7 +31,7 @@ const addUser = async (req, res)=>{
         process.env.JWT_PASS,
         {expiresIn: '24h'})
 
-        res.status(200).send(`${token}`)
+        res.status(200).send(`Bearer ${token}`)
     }catch(err){
         res.send({message:`failed to create a user, ${err}`})
     }
