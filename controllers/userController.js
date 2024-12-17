@@ -8,7 +8,7 @@ dotenv.config()
 
 const addUser = async (req, res)=>{
     const body = req.body
-    const { username, password, email} = body;
+    const { username, password, email, postId} = body;
     
     try{
         const hash = await bcrypt.hashSync(password, 10)
@@ -18,9 +18,9 @@ const addUser = async (req, res)=>{
             "password": hash,
             "email": email,
         })
-        await postModel.findByIdAndUpdate(post,{
+        await postModel.findByIdAndUpdate(postId,{
             $push:{
-                posts: createUser._id,
+                userId: createUser._id,
             }
         })
         
