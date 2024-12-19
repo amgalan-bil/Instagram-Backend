@@ -53,7 +53,7 @@ const login = async(req, res)=>{
         {expiresIn: '24h'})
 
         if(checkUserPass){
-            res.status(200).send(`Bearer ${token}, login successful`)
+            res.status(200).send(`login successful, Bearer ${token}`)
         }else{
             res.send("login fail")
         }
