@@ -4,7 +4,7 @@ const postModel = require("../models/postSchema");
 
 const addComment = async(req, res)=>{
     const {userId, comment, postId} = req.body
-    const token = req.body
+    const token = req.user
     console.log(token.userId)
     try{
         const createComment = await commentModel.create({
