@@ -44,9 +44,16 @@ const login = async(req, res)=>{
     try{
         const existingUser = await userModel.findOne({email})
         const checkUserPass = bcrypt.compare(password, existingUser.password)
-        
+
+        const token = jwt.sign({
+            userId: existingUser._id,
+            username: existingUser.username
+        },
+        process.env.JWT_PASS,
+        {expiresIn: '24h'})
+
         if(checkUserPass){
-            res.send("login successful")
+            res.status(200).send(`Bearer ${token}, login successful`)
         }else{
             res.send("login fail")
         }
