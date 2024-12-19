@@ -38,6 +38,23 @@ const addUser = async (req, res)=>{
 
 }
 
+const login = async(req, res)=>{
+    const {email, password} = req.body
+
+    try{
+        const existingUser = await userModel.findOne({email})
+        const checkUserPass = bcrypt.compare(password, existingUser.password)
+        
+        if(checkUserPass){
+            res.send("login successful")
+        }else{
+            res.send("login fail")
+        }
+
+    }catch(err){
+        res.status(500).send(err)
+    }
+}
 
 const getUser = async(req,res)=>{
 
@@ -52,4 +69,4 @@ const getUser = async(req,res)=>{
 }
 
 
-module.exports = {addUser, getUser}
+module.exports = {addUser, getUser, login}

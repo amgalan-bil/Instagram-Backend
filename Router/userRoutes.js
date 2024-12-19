@@ -1,6 +1,6 @@
 const {Router} = require("express")
 
-const { addUser, getUser} = require("../controllers/userController")
+const { addUser, getUser, login} = require("../controllers/userController")
 const {addComment, getComment} = require("../controllers/commentController")
 const {follow, unfollow} = require("../controllers/followController")
 const {likePost, getLike, unLike} = require("../controllers/likeController")
@@ -9,6 +9,7 @@ const {likePost, getLike, unLike} = require("../controllers/likeController")
 const userRoute = Router();
 
 userRoute.post("/signup", addUser)
+userRoute.post("/login", login)
 userRoute.get("/users", getUser)
 
 userRoute.post("/comment", addComment)
