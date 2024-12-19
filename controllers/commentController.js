@@ -1,14 +1,14 @@
 const commentModel = require("../models/commentSchema")
 const postModel = require("../models/postSchema");
-
+const jwt = require("jsonwebtoken")
 
 const addComment = async(req, res)=>{
     const {userId, comment, postId} = req.body
-    const token = req.user
-    console.log(token.userId)
+    const verify = jwt.verify(userId, process.env.JWT_PASS)
+    console.log(verify.userId)
     try{
         const createComment = await commentModel.create({
-            "userId": token.userId,
+            "userId": verify.userId,
             "comment": comment,
             "postId": postId
         })
