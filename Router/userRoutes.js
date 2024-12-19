@@ -4,14 +4,14 @@ const { addUser, getUser} = require("../controllers/userController")
 const {addComment, getComment} = require("../controllers/commentController")
 const {follow, unfollow} = require("../controllers/followController")
 const {likePost, getLike, unLike} = require("../controllers/likeController")
-
+const checkToken = require("../middleware")
 
 const userRoute = Router();
 
 userRoute.post("/signup", addUser)
 userRoute.get("/users", getUser)
 
-userRoute.post("/comment", addComment)
+userRoute.post("/comment",checkToken, addComment)
 userRoute.get("/posts/comment/:postId", getComment)
 
 userRoute.post("/follow" , follow)

@@ -9,12 +9,13 @@ const checkToken = (req,res,next)=>{
         const verify = jwt.verify(token, process.env.JWT_PASS)
         
         if(verify){
+            req.user = verify
             next()
         }else{
             res.send({message:"token not found"})
         }
 
     }
-
+3
 
 module.exports = checkToken

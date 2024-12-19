@@ -4,6 +4,6 @@ const checkToken = require("../middleware")
 const postRouter = Router()
 
 postRouter.post("/post", createPost)
-postRouter.get("/posts", checkToken ,getPost)
+postRouter.get("/posts", checkToken , getPost)
 
 module.exports = postRouter;
