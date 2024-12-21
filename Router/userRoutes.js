@@ -19,7 +19,7 @@ userRoute.post("/follow" , follow)
 userRoute.post("/unfollow" , unfollow)
 
 userRoute.post("/like", likePost)
-userRoute.get("/like/get", getLike)
+userRoute.get("/like/get/:postId", getLike)
 userRoute.post("/unlike", unLike)
 
 module.exports = userRoute;
