@@ -23,8 +23,10 @@ const likePost = async(req, res)=>{
 }
 
 const getLike = async(req, res)=>{
+
+    const {likedUserId} = req.params
     try{
-        const likedPost = await postModel.find().populate("like", "username profileImage")
+        const likedPost = await postModel.findById(likedUserId).populate("like", "username profileImage")
 
         res.status(200).send(likedPost)
     }catch(err){
