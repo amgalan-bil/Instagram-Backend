@@ -16,7 +16,7 @@ const likePost = async(req, res)=>{
         })
 
 
-        res.status(200).send("liked post")
+        res.status(200).json({message:"liked post"})
     }catch(err){
         throw new Error(err)
     }
