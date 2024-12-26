@@ -3,19 +3,12 @@ const postModel = require("../models/postSchema");
 const likePost = async(req, res)=>{
 
     const{personThatLikesId, postThatGetLikedId} = req.body
-
-
     try{
-
         await postModel.findByIdAndUpdate(postThatGetLikedId, {
-            
             $addToSet: {
                 like: personThatLikesId
-            }
-            
+            }  
         })
-
-
         res.status(200).json({message:"liked post"})
     }catch(err){
         throw new Error(err)
@@ -44,7 +37,7 @@ const unLike = async(req, res)=>{
                 like: personThatUnlikes
             }
         })
-        res.status(200).send("unliked post")
+        res.status(200).json({message:"unliked post"})
     }catch(err){
         throw new Error(err)
     }
