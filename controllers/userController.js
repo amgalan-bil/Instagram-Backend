@@ -65,8 +65,10 @@ const login = async(req, res)=>{
 
 const getUser = async(req,res)=>{
 
+    const {userId} = req.params
+
     try{
-        const user = await postModel.find().populate("userId")
+        const user = await userModel.findById(userId)
         res.status(200).send(user)
     }catch(err){
         res.status(500).send(err)

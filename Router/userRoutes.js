@@ -10,7 +10,7 @@ const userRoute = Router();
 
 userRoute.post("/signup", addUser)
 userRoute.post("/login", login)
-userRoute.get("/users", getUser)
+userRoute.get("/users/:userId", getUser)
 
 userRoute.post("/comment", addComment)
 userRoute.get("/posts/comment/:postId", getComment)
