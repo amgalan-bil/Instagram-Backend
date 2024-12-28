@@ -69,7 +69,7 @@ const getUser = async(req,res)=>{
     const {userId} = req.params
     try{
         const user = await userModel.findOne({_id:userId.trim()})
-        res.status(200).send(user)
+        res.status(200).json(user)
     }catch(err){
         res.status(500).send(err)
         console.log(err)
