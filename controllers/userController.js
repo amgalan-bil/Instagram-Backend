@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const postModel = require("../models/postSchema");
 const jwt = require("jsonwebtoken")
 const dotenv = require("dotenv")
+const mongoose = require('mongoose')
 
 dotenv.config()
 
@@ -66,9 +67,8 @@ const login = async(req, res)=>{
 const getUser = async(req,res)=>{
 
     const {userId} = req.params
-
     try{
-        const user = await userModel.findById(userId)
+        const user = await userModel.findOne({_id:userId.trim()})
         res.status(200).send(user)
     }catch(err){
         res.status(500).send(err)
