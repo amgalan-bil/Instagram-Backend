@@ -1,54 +1,47 @@
-const userModel = require("../models/userSchema")
+const userModel = require("../models/userSchema");
 
+const follow = async (req, res) => {
+  try {
+    const { personThatFollowsId, personThatGetFollowedId } = req.body;
 
+    await userModel.findByIdAndUpdate(personThatFollowsId, {
+      $push: {
+        following: personThatGetFollowedId,
+      },
+    });
 
-const follow = async(req, res)=>{
-    try{
-        const {personThatFollowsId, personThatGetFollowedId} = req.body
+    await userModel.findByIdAndUpdate(personThatGetFollowedId, {
+      $push: {
+        follower: personThatFollowsId,
+      },
+    });
 
-        await userModel.findByIdAndUpdate(personThatFollowsId, {
-            $push: {
-                following: personThatGetFollowedId,
-            }
-        })
+    res.status(200).json({ message: "followed" });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
 
-        await userModel.findByIdAndUpdate(personThatGetFollowedId,{
-            $push:{
-                follower: personThatFollowsId,
-            }
-        })
+const unfollow = async (req, res) => {
+  try {
+    const { personThatUnfollowsId, personThatGetUnfollowedId } = req.body;
 
-        res.status(200).send("followed")
+    await userModel.findByIdAndUpdate(personThatUnfollowsId, {
+      $pull: {
+        following: personThatGetUnfollowedId,
+      },
+    });
 
-    }catch(err){
-        res.status(500).send(err)
-    }
-}
+    await userModel.findByIdAndUpdate(personThatGetUnfollowedId, {
+      $pull: {
+        follower: personThatUnfollowsId,
+      },
+    });
 
+    res.status(200).json({ message: "unfollowed" });
+  } catch (err) {
+    throw new Error(err);
+  }
+};
 
-const unfollow = async(req, res)=>{
-    try{
-        const{personThatUnfollowsId, personThatGetUnfollowedId} = req.body
-
-        await userModel.findByIdAndUpdate(personThatUnfollowsId, {
-            $pull: {
-                following: personThatGetUnfollowedId,
-            }
-
-        })
-
-        await userModel.findByIdAndUpdate(personThatGetUnfollowedId, {
-            $pull: {
-                follower: personThatUnfollowsId
-            }
-
-        })
-
-        res.status(200).send("unfollowed")
-    }catch(err){
-        throw new Error(err)
-    }
-}
-
-
-module.exports = {follow, unfollow}
+module.exports = { follow, unfollow };
